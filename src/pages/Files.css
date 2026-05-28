@@ -1,0 +1,72 @@
+.upload-zone {
+  display: flex; align-items: center; gap: 16px;
+  padding: 22px 24px; margin-bottom: 18px;
+  background: var(--bg2);
+  border: 1.5px dashed var(--bg3);
+  border-radius: 14px;
+  cursor: pointer; transition: border-color .15s, background .15s;
+}
+.upload-zone:hover { border-color: var(--accent); background: rgba(37,99,235,.04); }
+.upload-zone svg { color: var(--muted); flex-shrink: 0; }
+.upload-title { font-weight: 700; font-size: .95rem; }
+.upload-sub { font-size: .78rem; color: var(--muted); margin-top: 2px; }
+
+.cat-filter {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 0 12px;
+}
+.cat-filter svg { color: var(--muted); }
+.cat-filter select {
+  background: transparent; border: none; outline: none;
+  color: var(--text); font-size: .85rem; padding: 10px 8px 10px 0;
+  cursor: pointer;
+}
+
+.files-table {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden;
+}
+.files-head, .files-row {
+  display: grid;
+  grid-template-columns: 2.2fr 1.4fr 1fr .8fr 1fr 90px;
+  gap: 12px; align-items: center;
+  padding: 12px 18px;
+}
+.files-head {
+  background: var(--bg);
+  font-size: .72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .07em; color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+.files-row { border-bottom: 1px solid var(--border); font-size: .87rem; transition: background .15s; }
+.files-row:last-child { border-bottom: none; }
+.files-row:hover { background: var(--bg); }
+.files-cell { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.files-cell.muted { color: var(--muted); font-size: .8rem; }
+.files-cell.name { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.file-name-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cat-tag {
+  display: inline-block;
+  padding: 3px 9px; border-radius: 6px;
+  background: var(--bg3); color: var(--text);
+  font-size: .7rem; font-weight: 600;
+}
+.files-cell.actions { display: flex; gap: 5px; justify-content: flex-end; }
+
+@media (max-width: 900px) {
+  .files-head { display: none; }
+  .files-row {
+    grid-template-columns: 1fr;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    margin: 8px;
+  }
+  .files-row > .files-cell:not(.name):not(.actions)::before {
+    content: attr(data-label);
+    color: var(--muted);
+    margin-right: 6px;
+    font-size: .75rem;
+  }
+}
