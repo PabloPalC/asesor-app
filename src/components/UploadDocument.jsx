@@ -5,9 +5,19 @@ import { useRouter } from 'next/navigation'
 import { UploadCloud, Loader2, X } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { DOC_CATEGORIES } from '@/lib/constants'
+import { formatBytes } from '@/lib/format'
 
 function sanitize(name) {
   return name.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-zA-Z0-9._-]/g, '_')
+}
+
+const MAX_BYTES = 50 * 1024 * 1024 // 50 MB (límite plan free de Supabase)
+const ACCEPT = '.pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png'
+const ALLOWED_TYPES = ['application/pdf', 'image/jpeg', 'image/png']
+
+function isAllowed(f) {
+  if (ALLOWED_TYPES.includes(f.type)) return true
+  return /\.(pdf|jpe?g|png)$/i.test(f.name) // fallback si el navegador no da mime
 }
 
 // role: 'asesor' uploads to_client; 'cliente' uploads to_advisor
@@ -21,9 +31,22 @@ export default function UploadDocument({ tenantId, clientId, clientName, uploade
 
   const direction = role === 'asesor' ? 'to_client' : 'to_advisor'
 
+  const pickFile = (f) => {
+    setError('')
+    if (!f) { setFile(null); return }
+    if (!isAllowed(f)) { setError('Solo se permiten archivos PDF, JPG o PNG.'); setFile(null); return }
+    if (f.size > MAX_BYTES) { setError('El archivo supera el límite de 50 MB.'); setFile(null); return }
+    setFile(f)
+  }
+
   const onUpload = async (e) => {
     e.preventDefault()
     if (!file) return
+    if (!isAllowed(file)) { setError('Solo se permiten archivos PDF, JPG o PNG.'); return }
+    if (file.size > MAX_BYTES) {
+      setError('El archivo supera el límite de 50 MB del plan actual.')
+      return
+    }
     setError('')
     setBusy(true)
     const supabase = createClient()
@@ -72,15 +95,16 @@ export default function UploadDocument({ tenantId, clientId, clientName, uploade
       {file ? (
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: 10, padding: '10px 12px', marginBottom: 12 }}>
           <UploadCloud size={18} className="muted" />
-          <span style={{ flex: 1, fontSize: 14, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{file.name}</span>
+          <span style={{ flex: 1, minWidth: 0, fontSize: 14, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{file.name}</span>
+          <span style={{ fontSize: 12, color: file.size > MAX_BYTES ? '#fca5a5' : 'var(--muted2)', whiteSpace: 'nowrap' }}>{formatBytes(file.size)}</span>
           <button type="button" onClick={() => { setFile(null); if (inputRef.current) inputRef.current.value = '' }} className="muted" aria-label="Quitar"><X size={16} /></button>
         </div>
       ) : (
         <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, border: '1.5px dashed var(--border2)', borderRadius: 12, padding: '26px', cursor: 'pointer', marginBottom: 12 }}>
           <UploadCloud size={26} className="muted" />
           <span style={{ fontSize: 14, fontWeight: 600 }}>Selecciona un archivo</span>
-          <span className="muted" style={{ fontSize: 12.5 }}>PDF, imágenes, Excel, ZIP…</span>
-          <input ref={inputRef} type="file" hidden onChange={(e) => setFile(e.target.files?.[0] || null)} />
+          <span className="muted" style={{ fontSize: 12.5 }}>PDF, JPG o PNG · máx. 50 MB</span>
+          <input ref={inputRef} type="file" hidden accept={ACCEPT} onChange={(e) => pickFile(e.target.files?.[0] || null)} />
         </label>
       )}
 

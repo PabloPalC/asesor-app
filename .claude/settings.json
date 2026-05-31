@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__claude_ai_Supabase__list_projects",
+      "mcp__claude_ai_Vercel__list_teams",
+      "mcp__claude_ai_Supabase__list_organizations",
+      "mcp__claude_ai_Vercel__list_projects",
+      "mcp__claude_ai_Supabase__get_cost",
+      "mcp__claude_ai_Supabase__confirm_cost",
+      "mcp__claude_ai_Supabase__create_project",
+      "mcp__claude_ai_Supabase__get_project_url",
+      "mcp__claude_ai_Supabase__get_publishable_keys",
+      "mcp__claude_ai_Supabase__apply_migration",
+      "mcp__claude_ai_Supabase__get_advisors",
+      "Bash(rm -rf src index.html vite.config.js eslint.config.js .github/workflows/deploy.yml public/manifest.json src/assets)",
+      "Bash(rm -f public/manifest.json)",
+      "Bash(rm -f package-lock.json)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(git add *)",
+      "Bash(git reset *)",
+      "Bash(git commit -q -m ' *)",
+      "mcp__claude_ai_Vercel__deploy_to_vercel",
+      "Bash(git push *)",
+      "Read(//c/Users/User/.claude/projects/c--Users-User-Desktop-Proyectos-Claude-asesor-app/memory/**)",
+      "Bash(ls)",
+      "Bash(cat MEMORY.md)",
+      "Bash(grep -q \"Ready\\\\|Local:\\\\|error\\\\|Error\" \"C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-User-Desktop-Proyectos-Claude-asesor-app\\\\347004e6-b3a8-40c6-8ef0-6a4a072b2010\\\\tasks\\\\b3kt4wf9a.output\")",
+      "Bash(break)",
+      "mcp__claude_ai_Supabase__get_logs",
+      "Bash(python -c ' *)",
+      "mcp__claude_ai_Supabase__execute_sql"
+    ]
+  }
+}
