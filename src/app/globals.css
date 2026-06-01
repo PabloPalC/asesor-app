@@ -166,5 +166,32 @@ textarea.bare:focus { border-color: var(--accent); }
   .card { padding: 16px; }
 }
 
-/* Prevent long words/emails from forcing horizontal scroll */
-.card, .table td, .page-sub { overflow-wrap: anywhere; }
+/* Break only long unbreakable strings (emails/urls), never normal words */
+.page-sub, .dname, .dsub, .break { overflow-wrap: break-word; }
+.table { min-width: 520px; } /* leftover tables scroll inside their wrapper instead of collapsing */
+
+/* ---------- Responsive data list (cards that replace tables on mobile) ---------- */
+.dlist { display: flex; flex-direction: column; }
+.ditem {
+  display: grid; grid-template-columns: minmax(0,1fr) auto;
+  grid-template-areas: "main actions" "meta meta";
+  gap: 10px 12px; align-items: center;
+  padding: 14px 16px; border-bottom: 1px solid var(--border);
+}
+.ditem:last-child { border-bottom: none; }
+.ditem:hover { background: rgba(255,255,255,.02); }
+.ditem-main { grid-area: main; display: flex; align-items: center; gap: 11px; min-width: 0; }
+.ditem-actions { grid-area: actions; display: flex; gap: 6px; align-items: center; }
+.ditem-meta { grid-area: meta; display: flex; gap: 8px 10px; flex-wrap: wrap; align-items: center; font-size: 12.5px; color: var(--muted); }
+.dname { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dsub { font-size: 12px; color: var(--muted2); display: flex; align-items: center; gap: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ficon { width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0; display: grid; place-items: center; background: rgba(37,99,235,.14); color: #93c5fd; }
+.avatar-sm { width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0; display: grid; place-items: center; font-size: 12px; font-weight: 700; color: #fff; background: var(--accent); }
+@media (min-width: 720px) {
+  /* On wider screens show meta inline on the right, like a table row */
+  .ditem.ditem-wide {
+    grid-template-columns: minmax(0,1.6fr) minmax(0,2fr) auto;
+    grid-template-areas: "main meta actions";
+  }
+  .ditem.ditem-wide .ditem-meta { justify-content: flex-start; }
+}

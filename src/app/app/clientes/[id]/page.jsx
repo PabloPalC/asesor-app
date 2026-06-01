@@ -35,10 +35,10 @@ export default async function ClientDetailPage({ params }) {
         </div>
         <div style={{ flex: 1, minWidth: 200 }}>
           <h1 style={{ fontSize: 22, fontWeight: 700 }}>{client.full_name}</h1>
-          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 6, color: 'var(--muted)', fontSize: 13.5 }}>
-            <span className="row" style={{ gap: 6 }}><Mail size={14} /> {client.email}</span>
-            {client.company && <span className="row" style={{ gap: 6 }}><Building2 size={14} /> {client.company}</span>}
-            <span className="row" style={{ gap: 6 }}><Calendar size={14} /> Alta {formatDate(client.created_at)}</span>
+          <div style={{ display: 'flex', gap: '6px 16px', flexWrap: 'wrap', marginTop: 6, color: 'var(--muted)', fontSize: 13.5 }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, minWidth: 0, maxWidth: '100%' }}><Mail size={14} style={{ flexShrink: 0 }} /> <span className="break">{client.email}</span></span>
+            {client.company && <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, minWidth: 0 }}><Building2 size={14} style={{ flexShrink: 0 }} /> <span className="break">{client.company}</span></span>}
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><Calendar size={14} style={{ flexShrink: 0 }} /> Alta {formatDate(client.created_at)}</span>
           </div>
         </div>
         <ClientStatusControl clientId={client.id} status={client.status} />

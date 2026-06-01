@@ -13,10 +13,10 @@ export function StatCard({ icon, label, value, hint, accent }) {
       }}>
         <Icon size={22} />
       </div>
-      <div style={{ position: 'relative', zIndex: 1 }}>
-        <div style={{ fontSize: 26, fontWeight: 700, letterSpacing: '-.02em' }}>{value}</div>
-        <div className="muted" style={{ fontSize: 13 }}>{label}</div>
-        {hint && <div style={{ fontSize: 12, color: 'var(--muted2)', marginTop: 2 }}>{hint}</div>}
+      <div style={{ position: 'relative', zIndex: 1, minWidth: 0 }}>
+        <div style={{ fontSize: 25, fontWeight: 700, letterSpacing: '-.02em', overflowWrap: 'break-word' }}>{value}</div>
+        <div className="muted" style={{ fontSize: 13, overflowWrap: 'break-word' }}>{label}</div>
+        {hint && <div style={{ fontSize: 12, color: 'var(--muted2)', marginTop: 2, overflowWrap: 'break-word' }}>{hint}</div>}
       </div>
     </div>
   )
