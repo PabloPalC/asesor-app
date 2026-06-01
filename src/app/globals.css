@@ -21,7 +21,12 @@
 
 html, body { height: 100%; max-width: 100%; overflow-x: hidden; }
 body {
-  background: radial-gradient(1200px 800px at 80% -10%, #1b2a4a 0%, transparent 60%), var(--bg);
+  background:
+    radial-gradient(900px 620px at 88% -8%, rgba(37,99,235,.20), transparent 55%),
+    radial-gradient(760px 680px at -12% 8%, rgba(124,58,237,.16), transparent 55%),
+    radial-gradient(820px 640px at 55% 118%, rgba(6,182,212,.12), transparent 55%),
+    var(--bg);
+  background-attachment: fixed;
   color: var(--text);
   font-size: 15px;
   line-height: 1.55;
@@ -45,14 +50,19 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   height: 42px; padding: 0 18px; border-radius: 10px; font-weight: 600; font-size: 14px;
-  transition: filter .18s, background .18s, border-color .18s, opacity .18s;
+  transition: filter .18s, background .18s, border-color .18s, opacity .18s, transform .18s, box-shadow .18s;
   cursor: pointer; white-space: nowrap;
 }
 .btn:disabled { opacity: .55; cursor: not-allowed; }
-.btn-primary { background: var(--accent); color: var(--accent-contrast); }
-.btn-primary:hover:not(:disabled) { filter: brightness(1.1); }
+.btn-primary {
+  background: var(--accent);
+  background-image: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0));
+  color: var(--accent-contrast);
+  box-shadow: 0 8px 22px -10px var(--accent);
+}
+.btn-primary:hover:not(:disabled) { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 12px 26px -10px var(--accent); }
 .btn-ghost { background: var(--card2); color: var(--text); border: 1px solid var(--border); }
-.btn-ghost:hover:not(:disabled) { border-color: var(--border2); background: #233556; }
+.btn-ghost:hover:not(:disabled) { border-color: var(--border2); background: #233556; transform: translateY(-1px); }
 .btn-danger { background: rgba(239,68,68,.14); color: #fca5a5; border: 1px solid rgba(239,68,68,.3); }
 .btn-danger:hover:not(:disabled) { background: rgba(239,68,68,.22); }
 .btn-sm { height: 34px; padding: 0 12px; font-size: 13px; }
@@ -60,23 +70,43 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 
 /* ---------- Cards ---------- */
 .card {
-  background: linear-gradient(180deg, var(--card) 0%, var(--bg2) 100%);
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0) 42%),
+    linear-gradient(180deg, var(--card) 0%, var(--bg2) 100%);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 22px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 14px 34px -18px rgba(0,0,0,.65);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
 .card-pad-0 { padding: 0; }
+
+/* Subtle accent glow in the top-right corner */
+.card-accent::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(420px 200px at 100% 0%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%);
+}
+@supports not (background: color-mix(in srgb, red, blue)) {
+  .card-accent::after { background: radial-gradient(420px 200px at 100% 0%, rgba(37,99,235,.20), transparent 60%); }
+}
+
+/* Lift on hover for interactive/feature cards */
+.lift:hover { transform: translateY(-3px); box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 22px 44px -20px rgba(0,0,0,.7); border-color: var(--border2); }
 
 /* ---------- Forms ---------- */
 .field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
 .field > span { font-size: 13px; font-weight: 600; color: var(--muted); }
 .input-wrap {
   display: flex; align-items: center; gap: 10px;
-  background: var(--bg); border: 1px solid var(--border);
+  background: rgba(8,13,25,.6); border: 1px solid var(--border);
   border-radius: 10px; padding: 0 12px; height: 44px;
-  transition: border-color .18s;
+  transition: border-color .18s, box-shadow .18s;
 }
-.input-wrap:focus-within { border-color: var(--accent); }
+.input-wrap:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+@supports not (background: color-mix(in srgb, red, blue)) {
+  .input-wrap:focus-within { box-shadow: 0 0 0 3px rgba(37,99,235,.25); }
+}
 .input-wrap svg { color: var(--muted2); flex-shrink: 0; }
 .input-wrap input, .input-wrap select, .input-wrap textarea {
   flex: 1; background: none; border: none; color: var(--text); outline: none; width: 100%;
@@ -99,6 +129,7 @@ textarea.bare:focus { border-color: var(--accent); }
 
 /* ---------- Tables ---------- */
 .table { width: 100%; border-collapse: collapse; }
+.table thead { background: rgba(255,255,255,.022); }
 .table th { text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted2); font-weight: 600; padding: 12px 16px; border-bottom: 1px solid var(--border); }
 .table td { padding: 14px 16px; border-bottom: 1px solid var(--border); font-size: 14px; }
 .table tr:last-child td { border-bottom: none; }

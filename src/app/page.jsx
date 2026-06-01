@@ -47,7 +47,7 @@ export default async function Landing() {
 
       <section className={styles.features}>
         {features.map((f) => (
-          <div key={f.title} className={`card ${styles.feature}`}>
+          <div key={f.title} className={`card card-accent lift ${styles.feature}`}>
             <div className={styles.featIcon}><f.icon size={20} /></div>
             <h3>{f.title}</h3>
             <p>{f.text}</p>

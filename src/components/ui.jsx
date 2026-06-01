@@ -2,17 +2,18 @@ import * as Icons from 'lucide-react'
 
 export function StatCard({ icon, label, value, hint, accent }) {
   const Icon = Icons[icon] || Icons.Activity
+  const a = accent || '#64748b'
   return (
-    <div className="card" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+    <div className="card card-accent lift" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
       <div style={{
-        width: 46, height: 46, borderRadius: 12, flexShrink: 0,
-        display: 'grid', placeItems: 'center',
-        background: accent ? 'rgba(37,99,235,.15)' : 'rgba(148,163,184,.12)',
-        color: accent || '#cbd5e1',
+        width: 48, height: 48, borderRadius: 13, flexShrink: 0,
+        display: 'grid', placeItems: 'center', color: '#fff',
+        background: `linear-gradient(140deg, ${a}, ${a}99)`,
+        boxShadow: `0 8px 20px -8px ${a}`,
       }}>
         <Icon size={22} />
       </div>
-      <div>
+      <div style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ fontSize: 26, fontWeight: 700, letterSpacing: '-.02em' }}>{value}</div>
         <div className="muted" style={{ fontSize: 13 }}>{label}</div>
         {hint && <div style={{ fontSize: 12, color: 'var(--muted2)', marginTop: 2 }}>{hint}</div>}
@@ -36,9 +37,12 @@ export function SectionCard({ title, action, children, pad = true }) {
   return (
     <div className={`card ${pad ? '' : 'card-pad-0'}`}>
       {title && (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12,
           padding: pad ? '0 0 16px' : '18px 20px', borderBottom: pad ? 'none' : '1px solid var(--border)' }}>
-          <h3 style={{ fontSize: 16, fontWeight: 700 }}>{title}</h3>
+          <h3 style={{ fontSize: 16, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ width: 4, height: 16, borderRadius: 99, background: 'var(--accent)', display: 'inline-block', flexShrink: 0 }} />
+            {title}
+          </h3>
           {action}
         </div>
       )}
