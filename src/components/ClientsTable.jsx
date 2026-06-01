@@ -33,7 +33,7 @@ export default function ClientsTable({ clients }) {
           <Search size={16} />
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Buscar por nombre, email o empresa…" />
         </div>
-        <div style={{ display: 'flex', gap: 6 }}>
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
           {filters.map((f) => (
             <button key={f.id} onClick={() => setFilter(f.id)}
               className={`btn btn-sm ${filter === f.id ? 'btn-primary' : 'btn-ghost'}`}>

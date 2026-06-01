@@ -39,7 +39,7 @@ export default function CustomizeForm({ tenant }) {
   }
 
   return (
-    <div className="grid" style={{ gridTemplateColumns: 'minmax(0,1.4fr) minmax(0,1fr)', alignItems: 'start' }}>
+    <div className="grid grid-main">
       <form onSubmit={save} className="card">
         <label className="field">
           <span>Nombre del despacho</span>

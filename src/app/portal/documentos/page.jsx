@@ -17,7 +17,7 @@ export default async function PortalDocumentos() {
         </div>
       </div>
 
-      <div className="grid" style={{ gridTemplateColumns: 'minmax(0,1.8fr) minmax(0,1fr)', alignItems: 'start' }}>
+      <div className="grid grid-main">
         <DocumentsBrowser docs={docs} canDelete={false} currentUserId={profile.id} />
         <UploadDocument
           tenantId={tenant.id} clientId={profile.id} clientName={profile.full_name}

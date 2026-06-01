@@ -32,7 +32,7 @@ export default async function PortalHome() {
         <StatCard icon="Clock" label="Última actividad" value={activity.length ? timeAgo(activity[0].created_at) : '—'} accent={tenant.primary_color} />
       </div>
 
-      <div className="grid" style={{ gridTemplateColumns: 'minmax(0,1.8fr) minmax(0,1fr)', alignItems: 'start' }}>
+      <div className="grid grid-main">
         <SectionCard title="Documentos recientes" pad={false}>
           <DocumentList docs={recent} currentUserId={profile.id} emptyText="Tu asesor aún no ha compartido documentos." />
         </SectionCard>

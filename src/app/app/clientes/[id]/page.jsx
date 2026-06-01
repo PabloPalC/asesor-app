@@ -44,7 +44,7 @@ export default async function ClientDetailPage({ params }) {
         <ClientStatusControl clientId={client.id} status={client.status} />
       </div>
 
-      <div className="grid" style={{ gridTemplateColumns: 'minmax(0,1.8fr) minmax(0,1fr)', alignItems: 'start' }}>
+      <div className="grid grid-main">
         <div className="col" style={{ gap: 16 }}>
           <SectionCard title={`Documentos (${docs.length})`} pad={false}>
             <DocumentList docs={docs} canDelete showClient={false} emptyText="Aún no hay documentos con este cliente." />
