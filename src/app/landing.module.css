@@ -8,7 +8,8 @@
 }
 .navLinks { display: flex; gap: 10px; }
 
-.hero { text-align: center; padding: 70px 0 60px; }
+.hero { text-align: center; padding: 70px 0 60px; animation: heroIn .5s cubic-bezier(.2, .6, .2, 1) both; }
+@keyframes heroIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 .eyebrow {
   display: inline-block; font-size: 13px; font-weight: 600; color: #93c5fd;
   background: rgba(37,99,235,.14); border: 1px solid rgba(37,99,235,.3);

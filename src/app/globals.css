@@ -150,6 +150,19 @@ textarea.bare:focus { border-color: var(--accent); }
 .spin { animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* ---------- Page transitions ---------- */
+/* Direct children of each page rise in, lightly staggered. */
+.page-anim > * { animation: riseIn .4s cubic-bezier(.2, .6, .2, 1) both; }
+.page-anim > *:nth-child(1) { animation-delay: .02s; }
+.page-anim > *:nth-child(2) { animation-delay: .08s; }
+.page-anim > *:nth-child(3) { animation-delay: .14s; }
+.page-anim > *:nth-child(4) { animation-delay: .20s; }
+.page-anim > *:nth-child(n+5) { animation-delay: .24s; }
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
 .grid { display: grid; gap: 16px; }
 .grid-stats { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 .grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
